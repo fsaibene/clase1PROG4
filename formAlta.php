@@ -43,9 +43,11 @@
 				<input type="text" name="legajo" id="legajo" placeholder="ingrese legajo" value="<?php echo isset($unaPersona) ?  $unaPersona->GetLegajo() : "" ; ?>" <?php echo isset($unaPersona) ?  "readonly": "" ; ?>        /> <span id="lblLegajo" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
 				<?php echo isset($unaPersona) ? 	"<p style='color: black;'>*El Legajo no se puede modificar.</p> ": "" ; ?>
 				<input type="hidden" name="idOculto" value="<?php echo isset($unaPersona) ? $unaPersona->GetId() : "" ; ?>" />
-				
+					<input type="file" name="foto" />
 
 
+				<img  src="fotos/<?php echo isset($unaPersona) ? $unaPersona->GetFoto() : "pordefecto.png" ; ?>" class="fotoform"/>
+				<p style="  color: black;">*La foto se actualiza al guardar.</p>
 
 
 				<a class="btn btn-info " name="guardar" onclick="Validar()" ><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</a>
@@ -112,8 +114,8 @@ if(isset($_POST['agregar']) && $_POST['agregar'] === "Guardar")// si esto no se 
 					else
 					{
 						//$destino =  "fotos/".$_FILES["foto"]["name"];
-						$destino = "fotos/". $_POST['dni'].".".$Extension;
-						$foto=$_POST['dni'].".".$Extension;
+						$destino = "fotos/". $_POST['legajo'].".".$Extension;
+						$foto=$_POST['legajo'].".".$Extension;
 						//MUEVO EL ARCHIVO DEL TEMPORAL AL DESTINO FINAL
     					if (move_uploaded_file($_FILES["foto"]["tmp_name"],$destino))
     					{		
@@ -142,7 +144,7 @@ if(isset($_POST['agregar']) && $_POST['agregar'] === "Guardar")// si esto no se 
 	{
 
 		$unaPersona = Alumno::TraerUnaPersona($_POST['idOculto']);
-		//$unaPersona->SetFoto($foto);
+		$unaPersona->SetFoto($foto);
 		$unaPersona->SetApellido($_POST['apellido']);
 		$unaPersona->SetNombre($_POST['nombre']);
 	
@@ -156,7 +158,7 @@ if(isset($_POST['agregar']) && $_POST['agregar'] === "Guardar")// si esto no se 
 	else// si es un alta
 	{
 		$p = new Alumno();	
-		//$p->SetFoto($foto);
+		$p->SetFoto($foto);
 		$p->SetApellido($_POST['apellido']);
 		$p->SetNombre($_POST['nombre']);
 		$p->SetLegajo($_POST['legajo']);

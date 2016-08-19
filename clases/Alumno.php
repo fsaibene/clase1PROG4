@@ -8,6 +8,7 @@ class Alumno
 	private $nombre;
  	private $apellido;
   	private $legajo;
+  	private $foto;
   	
 
 //--------------------------------------------------------------------------------//
@@ -30,7 +31,10 @@ class Alumno
 	{
 		return $this->Legajo;
 	}
-
+public function GetFoto()
+	{
+		return $this->Foto;
+	}
 	public function SetId($valor)
 	{
 		$this->id = $valor;
@@ -47,6 +51,10 @@ class Alumno
 	{
 		$this->Legajo = $valor;
 	}
+	public function SetFoto($valor)
+	{
+		$this->Foto = $valor;
+	}
 	
 //--------------------------------------------------------------------------------//
 //--CONSTRUCTOR
@@ -58,6 +66,7 @@ class Alumno
 			$this->apellido = $obj->apellido;
 			$this->nombre = $obj->nombre;
 			$this->legajo = $legajo;
+			$this->Foto = $obj->foto;
 		
 		}
 	}
@@ -66,7 +75,7 @@ class Alumno
 //--TOSTRING	
   	public function ToString()
 	{
-	  	return $this->apellido."-".$this->nombre."-".$this->legajo;
+	  	return $this->apellido."-".$this->nombre."-".$this->legajo."-".$this->foto;
 	}
 //--------------------------------------------------------------------------------//
 
@@ -126,10 +135,12 @@ class Alumno
 	public static function Insertar($alumno)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-				$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into alumno (nombre,apellido,legajo)values(:nombre,:apellido,:legajo)");
+				$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into alumno (nombre,apellido,legajo,foto)values(:nombre,:apellido,:legajo,:foto)");
 				$consulta->bindValue(':nombre',$alumno->Nombre, PDO::PARAM_STR);
 				$consulta->bindValue(':apellido', $alumno->Apellido, PDO::PARAM_STR);
 				$consulta->bindValue(':legajo', $alumno->Legajo, PDO::PARAM_INT);
+				$consulta->bindValue(':foto', $alumno->Foto, PDO::PARAM_STR);
+
 			$consulta->execute();		
 				return $objetoAccesoDato->RetornarUltimoIdInsertado();
 	
