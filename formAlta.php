@@ -26,7 +26,7 @@
 	$titulo = "ALTA";
 	if(isset($_POST['legajoParaModificar'])) //viene de la grilla
 	{
-		$unaPersona = Alumno::TraerUnaPersona($_POST['legajoParaModificar']);
+		$unAlumno = Alumno::TraerUnAlumno($_POST['legajoParaModificar']);
 		$titulo = "MODIFICACIÓN";
 	} 
 ?>
@@ -38,15 +38,15 @@
 			<h1> <?php echo $titulo; ?> </h1>
 
 			<form id="FormIngreso" method="post" action="formAlta.php" enctype="multipart/form-data" >
-				<input type="text" name="apellido" id="apellido" placeholder="ingrese apellido" value="<?php echo isset($unaPersona) ?  $unaPersona->GetApellido() : "" ; ?>" /><span id="lblApellido" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-				<input type="text" name="nombre" id="nombre" placeholder="ingrese nombre" value="<?php echo isset($unaPersona) ?  $unaPersona->GetNombre() : "" ; ?>" /> <span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-				<input type="text" name="legajo" id="legajo" placeholder="ingrese legajo" value="<?php echo isset($unaPersona) ?  $unaPersona->GetLegajo() : "" ; ?>" <?php echo isset($unaPersona) ?  "readonly": "" ; ?>        /> <span id="lblLegajo" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-				<?php echo isset($unaPersona) ? 	"<p style='color: black;'>*El Legajo no se puede modificar.</p> ": "" ; ?>
-				<input type="hidden" name="idOculto" value="<?php echo isset($unaPersona) ? $unaPersona->GetId() : "" ; ?>" />
+				<input type="text" name="apellido" id="apellido" placeholder="ingrese apellido" value="<?php echo isset($unAlumno) ?  $unAlumno->GetApellido() : "" ; ?>" /><span id="lblApellido" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
+				<input type="text" name="nombre" id="nombre" placeholder="ingrese nombre" value="<?php echo isset($unAlumno) ?  $unAlumno->GetNombre() : "" ; ?>" /> <span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
+				<input type="text" name="legajo" id="legajo" placeholder="ingrese legajo" value="<?php echo isset($unAlumno) ?  $unAlumno->GetLegajo() : "" ; ?>" <?php echo isset($unAlumno) ?  "readonly": "" ; ?>        /> <span id="lblLegajo" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
+				<?php echo isset($unAlumno) ? 	"<p style='color: black;'>*El Legajo no se puede modificar.</p> ": "" ; ?>
+				<input type="hidden" name="idOculto" value="<?php echo isset($unAlumno) ? $unAlumno->GetId() : "" ; ?>" />
 					<input type="file" name="foto" />
 
 
-				<img  src="fotos/<?php echo isset($unaPersona) ? $unaPersona->GetFoto() : "pordefecto.png" ; ?>" class="fotoform"/>
+				<img  src="fotos/<?php echo isset($unAlumno) ? $unAlumno->GetFoto() : "pordefecto.png" ; ?>" class="fotoform"/>
 				<p style="  color: black;">*La foto se actualiza al guardar.</p>
 
 
@@ -66,7 +66,7 @@ if(isset($_POST['agregar']) && $_POST['agregar'] === "Guardar")// si esto no se 
 
 	if($_POST['idOculto'] != "")//Solo para la foto
 	{
-		$unaPersona = Alumno::TraerUnaPersona($_POST['idOculto']);
+		$unAlumno = Alumno::TraerUnAlumno($_POST['idOculto']);
 		//$foto=$unaPersona->GetFoto();
 		
 	}else
@@ -143,16 +143,16 @@ if(isset($_POST['agregar']) && $_POST['agregar'] === "Guardar")// si esto no se 
 	if($_POST['idOculto'] != "")//paso por grilla y luego guardo
 	{
 
-		$unaPersona = Alumno::TraerUnaPersona($_POST['idOculto']);
-		$unaPersona->SetFoto($foto);
-		$unaPersona->SetApellido($_POST['apellido']);
-		$unaPersona->SetNombre($_POST['nombre']);
+		$unAlumno = Alumno::TraerUnAlumno($_POST['idOculto']);
+		$unAlumno->SetFoto($foto);
+		$unAlumno->SetApellido($_POST['apellido']);
+		$unAlumno->SetNombre($_POST['nombre']);
 	
 
-		$unaPersona->SetLegajo($_POST['legajo']);		
+		$unAlumno->SetLegajo($_POST['legajo']);		
 		
 					
-		$retorno = Alumno::Modificar($unaPersona);
+		$retorno = Alumno::Modificar($unAlumno);
 		
 	}
 	else// si es un alta

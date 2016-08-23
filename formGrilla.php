@@ -22,7 +22,8 @@
 		if(isset($_POST['legajoParaBorrar']))
 		{
 			$resultado = Alumno::Borrar($_POST['legajoParaBorrar']);
-			$mensaje = "SE HA BORRADO EXITOSAMENTE!!!";
+			
+			$mensaje = $resultado;
 		}
 	?>	
 	<form name="frmBorrar" method="POST" >

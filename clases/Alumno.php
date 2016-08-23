@@ -81,7 +81,7 @@ public function GetFoto()
 
 //--------------------------------------------------------------------------------//
 //--METODO DE CLASE
-	public static function TraerUnaPersona($idParametro) 
+	public static function TraerUnAlumno($idParametro) 
 	{	
 
 
@@ -105,6 +105,9 @@ public function GetFoto()
 	
 	public static function Borrar($idParametro)
 	{	
+		$alumno = Alumno::TraerUnAlumno($idParametro);
+		$legajo = $alumno->GetLegajo();
+	    unlink("./fotos/$legajo");
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		$consulta =$objetoAccesoDato->RetornarConsulta("delete from alumno	WHERE id=:id");	
 		$consulta->bindValue(':id',$idParametro, PDO::PARAM_INT);		
