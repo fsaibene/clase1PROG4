@@ -142,16 +142,12 @@ if(isset($_POST['agregar']) && $_POST['agregar'] === "Guardar")// si esto no se 
 
 	if($_POST['idOculto'] != "")//paso por grilla y luego guardo
 	{
-
 		$unAlumno = Alumno::TraerUnAlumno($_POST['idOculto']);
-		$unAlumno->SetFoto($foto);
+		//$unAlumno->SetFoto($foto);
 		$unAlumno->SetApellido($_POST['apellido']);
 		$unAlumno->SetNombre($_POST['nombre']);
-	
+		$unAlumno->SetLegajo($_POST['legajo']);
 
-		$unAlumno->SetLegajo($_POST['legajo']);		
-		
-					
 		$retorno = Alumno::Modificar($unAlumno);
 		
 	}

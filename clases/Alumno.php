@@ -17,23 +17,24 @@ class Alumno
 //--GETTERS Y SETTERS
   	public function GetId()
 	{
-		return $this->ID;
+		return $this->id;
 	}
 	public function GetApellido()
 	{
-		return $this->Apellido;
+		return $this->apellido;
 	}
 	public function GetNombre()
 	{
-		return $this->Nombre;
+		return $this->nombre;
 	}
 	public function GetLegajo()
 	{
-		return $this->Legajo;
+		return $this->legajo;
 	}
 public function GetFoto()
 	{
-		return $this->Foto;
+		return $this->foto;
+
 	}
 	public function SetId($valor)
 	{
@@ -41,19 +42,19 @@ public function GetFoto()
 	}
 	public function SetApellido($valor)
 	{
-		$this->Apellido = $valor;
+		$this->apellido = $valor;
 	}
 	public function SetNombre($valor)
 	{
-		$this->Nombre = $valor;
+		$this->nombre = $valor;
 	}
 	public function SetLegajo($valor)
 	{
-		$this->Legajo = $valor;
+		$this->legajo = $valor;
 	}
 	public function SetFoto($valor)
 	{
-		$this->Foto = $valor;
+		$this->foto = $valor;
 	}
 	
 //--------------------------------------------------------------------------------//
@@ -107,9 +108,9 @@ public function GetFoto()
 	{	
 		$alumno = Alumno::TraerUnAlumno($idParametro);
 		$legajo = $alumno->GetLegajo();
-	    unlink("./fotos/$legajo");
+	    unlink('./fotos/'.$legajo.'jpg');//falta validar que las fotos sean jpg
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("delete from alumno	WHERE id=:id");	
+		$consulta = $objetoAccesoDato->RetornarConsulta("delete from alumno	WHERE id=:id");
 		$consulta->bindValue(':id',$idParametro, PDO::PARAM_INT);		
 		$consulta->execute();
 		return $consulta->rowCount();
@@ -118,17 +119,17 @@ public function GetFoto()
 	
 	public static function Modificar($alumno)
 	{
-
-			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
 			$consulta =$objetoAccesoDato->RetornarConsulta("
 				update alumno 
-				set Nombre=:nombre,
-				Apellido=:apellido
+				set nombre=:nombre,
+				apellido=:apellido
 				WHERE id=:id");
 			$consulta->bindValue(':id',$alumno->GetId(), PDO::PARAM_INT);
 			$consulta->bindValue(':nombre',$alumno->GetNombre(), PDO::PARAM_STR);
 			$consulta->bindValue(':apellido', $alumno->GetApellido(), PDO::PARAM_STR);
-			return $consulta->execute();
+			$consulta->execute();
+		return $consulta->rowCount();
 	}
 
 //--------------------------------------------------------------------------------//

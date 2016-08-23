@@ -17,17 +17,17 @@
 				</tr> 
 			</thead>";   	
 
-		foreach ($ArrayDePersonas as $personaAux){
+		foreach ($ArrayDePersonas as $alumnoAux){
 		
 			echo " 	<tr>
 
-						<td>".$personaAux->GetNombre()."</td>
-						<td>".$personaAux->GetApellido()."</td>
-						<td>".$personaAux->GetLegajo()."</td>
-					<td><img  class='fotoGrilla' src='fotos/".$personaAux->GetFoto()."' /></td>
+						<td>".$alumnoAux->GetNombre()."</td>
+						<td>".$alumnoAux->GetApellido()."</td>
+						<td>".$alumnoAux->GetLegajo()."</td>
+					<td><img  class='fotoGrilla' src='fotos/".$alumnoAux->GetFoto()."' /></td>
 
-						<td><button class='btn btn-danger' name='Borrar' onclick='Borrar(".$personaAux->GetId().")'>   <span class='glyphicon glyphicon-remove-circle'>&nbsp;</span>Borrar</button></td>
-						<td><button class='btn btn-warning' name='Modificar' onclick='Modificar(".$personaAux->GetId().")'><span class='glyphicon glyphicon-edit'>&nbsp;</span>Modificar</button></td>
+						<td><button class='btn btn-danger' name='Borrar' onclick='Borrar(".$alumnoAux->GetId().")'>   <span class='glyphicon glyphicon-remove-circle'>&nbsp;</span>Borrar</button></td>
+						<td><button class='btn btn-warning' name='Modificar' onclick='Modificar(".$alumnoAux->GetId().")'><span class='glyphicon glyphicon-edit'>&nbsp;</span>Modificar</button></td>
 					</tr>";
 		}	
 	echo "</table>";		
